@@ -1,76 +1,105 @@
 <!DOCTYPE html>
 <html lang="pt-br">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style_desafio_logica.css">
     <title>Desafio lógica: Rafael</title>
 </head>
+
 <body>
-    
+
 
     <script>
-    // Exibe uma mensagem de boas-vindas ao usuário
-    alert('Olá, seja bem-vindo(a) ao nosso site!');
+        // Exibe uma mensagem de boas-vindas ao usuário
+        alert('Olá, seja bem-vindo(a) ao nosso site!');
 
-    // Solicita o nome do usuário
-    let nome = prompt('Qual é o seu nome?');
+        // Solicita o nome do usuário
+        let nome = prompt('Qual é o seu nome?');
 
-    // Solicita a distância entre a origem e o destino e converte para número
-    // trim() remove espaços extras, replace(/,/g, '.') troca vírgulas por pontos para evitar erros na conversão
-    let distanciaPercorrida = parseFloat(prompt('Qual a distância entre onde você parte para onde quer ir (em km), ' + nome + '?').trim().replace(/,/g, '.'));
-
-    // Solicita o consumo do veículo em km/L e converte para número
-    let consumoVeiculo = parseFloat(prompt('Qual o consumo de combustível do veículo (em km/L)?').trim().replace(/,/g, '.'));
-
-    // Pergunta quantos postos foram pesquisados e converte para número inteiro
-    let stationsSearched = parseInt(prompt('Agora vamos analisar em qual posto você deverá abastecer. Primeiro, em quantos postos de gasolina você pesquisou o preço?').trim().replace(/,/g, '.'));
-
-    // calcula a quantidade mínima de combustível necessária para a viagem
-    let consumoNecessario = distanciaPercorrida / consumoVeiculo;
-    consumoNecessario = consumoNecessario.toFixed(2); // limita o resultado para duas casas decimais
-
-    // declaração de variáveis para armazenar os preços dos postos e encontrar o menor preço depois
-    let somaTotalValores = 0; // variavel para soma dos preços dos postos
-    const valoresDosPostos = []; // Array para armazenar os valores digitados
-    let menorValor; // Variável para armazenar o menor preço encontrado
-    let postoBarato = 0; // variavel do posto com o menor preço
-
-    // laço para pegar os preços dos postos e identificar o menor preço
-    for (let i = 0; i < stationsSearched; i++) {
-        // solicita o preço do combustível no posto i+1 e converte para número
-        valoresDosPostos[i] = parseFloat(prompt(`Digite o valor (em R$) encontrado no posto ${i + 1}`).trim().replace(/,/g, '.'));
-    
-        // Soma todos os preços para calcular a média depois
-        somaTotalValores += valoresDosPostos[i];
-
-         // Verifica se é o primeiro valor digitado ou se o novo valor é menor que o menor já armazenado: se o proximo for menor, define o proximo como menor valor partindo da posição 0
-        if (i === 0) {
-        menorValor = valoresDosPostos[i]; // Define o primeiro valor como menor inicialmente
-        postoBarato = i; // Salva a posição do posto mais barato
-    }   else if (valoresDosPostos[i] < menorValor) {
-        menorValor = valoresDosPostos[i]; // Atualiza o menor valor caso seja menor que menorValor
-        postoBarato = i; // caso seja, atualiza o posto com o menor preço
-    }
-}
-
-    // Calcula a média de preço entre os postos pesquisados
-    let media = somaTotalValores / stationsSearched;
-    media = media.toFixed(2); // Limita para duas casas decimais
-
-    // Calcula o gasto diário considerando ida e volta com o posto mais barato
-    let gastoDiario = 2 * (consumoNecessario * menorValor);
-    gastoDiario = gastoDiario.toFixed(2); // Limita para duas casas decimais
-
-    // Exibe as informações na página com quebra de linha
-    document.write('A quantidade mínima necessária de combustível para chegar a seu destino é: ' + consumoNecessario + ' litros, ' + nome + '.' + "<br>");
-    document.write('O menor valor encontrado foi de: R$' + menorValor + ' no posto ' + (postoBarato + 1) + "<br>");
-    document.write('Seu gasto diário, com base no posto com o menor preço localizado, será: R$' + gastoDiario + "<br>");
-    document.write('A média de preço entre os postos pesquisados foi de: R$' + media + "<br>");
+        // Solicita a distância entre a origem e o destino e converte para número
+        // trim() remove espaços extras, replace(/,/g, '.') troca vírgulas por pontos para evitar erros na conversão
+        let distanciaPercorrida = parseFloat(prompt('Qual a distância entre onde você parte para onde quer ir (em km), ' + nome + '?').trim().replace(/,/g, '.'));
 
 
-        
-       
-      </script>
-    </body>
+        while (distanciaPercorrida <= 0 || isNaN(distanciaPercorrida)) {
+            alert('Desculpe, digite um valor numérico ou um valor positivo')
+            distanciaPercorrida = parseFloat(prompt('Qual a distância entre onde você parte para onde quer ir (em km), ' + nome + '?').trim().replace(/,/g, '.'));
+        }
+
+        // Solicita o consumo do veículo em km/L e converte para número
+        let consumoVeiculo = parseFloat(prompt('Qual o consumo de combustível do veículo (em km/L)?').trim().replace(/,/g, '.'));
+
+        //
+        while (consumoVeiculo <= 0 || isNaN(consumoVeiculo)) {
+            alert('Desculpe, digite um valor numérico ou um valor positivo');
+            consumoVeiculo = parseFloat(prompt('Qual o consumo de combustível do veículo (em km/L)?'));
+        }
+
+
+        // Pergunta quantos postos foram pesquisados e converte para número inteiro
+        let stationsSearched = parseInt(prompt('Agora vamos analisar em qual posto você deverá abastecer. Primeiro, em quantos postos de gasolina você pesquisou o preço?').trim().replace(/,/g, '.'));
+
+        while (stationsSearched <= 0 || isNaN(stationsSearched)) {
+            alert('Desculpe, digite um valor numérico ou um valor positivo');
+            stationsSearched = parseFloat(prompt('Agora vamos analisar em qual posto você deverá abastecer. Primeiro, em quantos postos de gasolina você pesquisou o preço?').trim().replace(/,/g, '.'));
+        }
+
+
+        // calcula a quantidade mínima de combustível necessária para a viagem
+        let consumoNecessario = distanciaPercorrida / consumoVeiculo;
+        consumoNecessario = consumoNecessario.toFixed(2); // limita o resultado para duas casas decimais
+
+
+        // declaração de variáveis para armazenar os preços dos postos e encontrar o menor preço depois
+        let somaTotalValores = 0; // variavel para soma dos preços dos postos
+        const valoresDosPostos = []; // Array para armazenar os valores digitados
+        let menorValor; // Variável para armazenar o menor preço encontrado
+        let postoBarato = 0; // variavel do posto com o menor preço
+
+        // laço para pegar os preços dos postos e identificar o menor preço
+        for (let i = 0; i < stationsSearched; i++) {
+            // solicita o preço do combustível no posto i+1 e converte para número
+            valoresDosPostos[i] = parseFloat(prompt(`Digite o valor (em R$) encontrado no posto ${i + 1}`).trim().replace(/,/g, '.'));
+
+            if (valoresDosPostos[i] <= 0 || isNaN(valoresDosPostos[i])) {
+                alert('Desculpe, digite um valor numérico ou um valor positivo');
+                valoresDosPostos[i] = parseFloat(prompt(`Digite o valor (em R$) encontrado no posto ${i + 1}`).trim().replace(/,/g, '.'));
+            } else {
+
+                // Soma todos os preços para calcular a média depois
+                somaTotalValores += valoresDosPostos[i];
+
+                // Verifica se é o primeiro valor digitado ou se o novo valor é menor que o menor já armazenado: se o proximo for menor, define o proximo como menor valor partindo da posição 0
+                if (i === 0) {
+                    menorValor = valoresDosPostos[i]; // Define o primeiro valor como menor inicialmente
+                    postoBarato = i; // Salva a posição do posto mais barato
+                } else if (valoresDosPostos[i] < menorValor) {
+                    menorValor = valoresDosPostos[i]; // Atualiza o menor valor caso seja menor que menorValor
+                    postoBarato = i; // caso seja, atualiza o posto com o menor preço
+                }
+            }
+        }
+
+        // Calcula a média de preço entre os postos pesquisados
+        let media = somaTotalValores / stationsSearched;
+        media = media.toFixed(2); // Limita para duas casas decimais
+
+        // Calcula o gasto diário considerando ida e volta com o posto mais barato
+        let gastoDiario = 2 * (consumoNecessario * menorValor);
+        gastoDiario = gastoDiario.toFixed(2); // Limita para duas casas decimais
+
+        // Exibe as informações na página com quebra de linha
+        document.write('A quantidade mínima necessária de combustível para chegar a seu destino é: ' + consumoNecessario + ' litros, ' + nome + '.' + "<br>");
+        document.write('O menor valor encontrado foi de: R$' + menorValor + ' no posto ' + (postoBarato + 1) + "<br>");
+        document.write('Seu gasto diário, com base no posto com o menor preço localizado, será: R$' + gastoDiario + "<br>");
+        document.write('A média de preço entre os postos pesquisados foi de: R$' + media + "<br>");
+
+
+
+
+    </script>
+</body>
+
 </html>

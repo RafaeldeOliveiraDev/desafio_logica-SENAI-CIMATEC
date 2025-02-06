@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style_desafio_logica.css">
+    <title>Desafio lógica: Rafael</title>
+</head>
+<body>
+    
+
+    <script>
+       alert('Olá, seja bem-vindo(a) ao nosso site!');
+
+        let nome = prompt('Qual é o seu nome?');
+
+        let distanciaPercorrida = parseFloat(prompt('Qual a distância entre onde você parte para onde quer ir (em km), ' + nome + '?').trim().replace(/,/g, '.'));
+
+        let consumoVeiculo = parseFloat(prompt('Qual o consumo de combustível do veículo (em km/L)?').trim().replace(/,/g, '.'));
+
+        let stationsSearched = parseInt(prompt('Agora vamos analisar em qual posto você deverá abastecer. Primeiro, em quantos postos de gasolina você pesquisou o preço?').trim().replace(/,/g, '.'));
+
+        let consumoNecessario = distanciaPercorrida / consumoVeiculo;
+        consumoNecessario = consumoNecessario.toFixed(2);
+
+        let somaTotalValores = 0;
+        const valoresDosPostos = [];
+        let menorValor;
+        let postoBarato = 0;
+
+    for (let i = 0; i < stationsSearched; i++) {
+        valoresDosPostos[i] = parseFloat(prompt(`Digite o valor (em R$) encontrado no posto ${i + 1}`).trim().replace(/,/g, '.'));
+        somaTotalValores += valoresDosPostos[i];
+
+        if (i === 0) {
+            menorValor = valoresDosPostos[i];
+            postoBarato = i;
+    } else if (valoresDosPostos[i] < menorValor) {
+            menorValor = valoresDosPostos[i];
+            postoBarato = i;
+    }
+}
+
+    let media = somaTotalValores / stationsSearched;
+    media = media.toFixed(2);
+
+    let gastoDiario = 2 * (consumoNecessario * menorValor);
+    gastoDiario = gastoDiario.toFixed(2);
+
+    document.write('A quantidade mínima necessária de combustível para chegar a seu destino é: ' + consumoNecessario + ' litros, ' + nome + '.' + "<br>");
+
+    document.write('O menor valor encontrado foi de: R$' + menorValor + ' no posto ' + (postoBarato + 1) + "<br>");
+
+    document.write('Seu gasto diário, com base no posto com o menor preço localizado, será: R$' + gastoDiario + "<br>");
+
+    document.write('A média de preço entre os postos pesquisados foi de: R$' + media + "<br>");
+
+        
+       
+      </script>
+    </body>
+</html>
